@@ -20,3 +20,11 @@ $query_obj = array(
 );
 ```
 will be sent in JSON to both target services.
+
+### Local test
+```
+# docker network create --driver=overlay --attachable test_net
+# docker run -it --name a0 --network test_net -v /path/to/your/host/index:/mnt/index approach0/a0 searchd.out -i /mnt/index -c0 -C0
+# docker run -it --network test_net -e A0_SEARCHD=a0 -p 8080:80 a0-relay
+```
+then visit `http://localhost:8080/search-relay.php?q=test`.
