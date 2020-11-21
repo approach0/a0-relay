@@ -1,4 +1,22 @@
 ## About
 Approach Zero search relay PHP server.
 
-Set environment variable `A0_QRYLOGD` and `A0_SEARCHD` to target services if they are not on `localhost`.
+Set environment variable `A0_QRYLOGD` or `A0_SEARCHD` to target services if they are not on `localhost`:
+```
+# docker run -it -p 8080:80 -e A0_SEARCHD=1.2.3.4 a0-relay
+```
+
+`A0_SEARCHD` should be listening on port 8921 and `A0_QRYLOGD` should be listening on port 3207.
+
+The query object
+```php
+$query_obj = array(
+	"ip" => $remote_ip,
+	"page" => $req_page,
+	"kw" => array(
+		array("type" => $kw_type, "str" => $kw_str),
+		...
+	)
+);
+```
+will be sent in JSON to both target services.
