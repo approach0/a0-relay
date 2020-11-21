@@ -38,6 +38,10 @@ function search_relay($query_obj)
 	);
 
 	$c = curl_init($GLOBALS['searchd_url']);
+
+	curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 3); /* connection timeout (secs) */
+	curl_setopt($c, CURLOPT_TIMEOUT, 10); /* curl execution timeout (secs) */
+
 	curl_setopt($c, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($c, CURLOPT_HTTPHEADER, $req_head);
 	curl_setopt($c, CURLOPT_POSTFIELDS, $qry_json);
@@ -66,6 +70,9 @@ function send_query_log($query_obj)
 	);
 
 	$c = curl_init($GLOBALS['logd_url']);
+
+	curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 3); /* connection timeout (secs) */
+	curl_setopt($c, CURLOPT_TIMEOUT, 10); /* curl execution timeout (secs) */
 
 	curl_setopt($c, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($c, CURLOPT_HTTPHEADER, $req_head);
