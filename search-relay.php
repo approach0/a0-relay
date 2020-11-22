@@ -208,7 +208,7 @@ foreach ($keywords as $kw) {
  * relay
  */
 enable_cors_policy();
-var_dump($query_obj);
+//var_dump($query_obj);
 
 try {
 	/* add to query logs */
