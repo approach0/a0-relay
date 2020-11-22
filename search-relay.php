@@ -207,14 +207,15 @@ foreach ($keywords as $kw) {
 /*
  * relay
  */
-# var_dump($query_obj);
+enable_cors_policy();
+var_dump($query_obj);
+
 try {
 	/* add to query logs */
 	send_query_log($query_obj);
 
 	/* relay query and return searchd response */
 	$searchd_response = search_relay($query_obj);
-	enable_cors_policy();
 	echo $searchd_response;
 
 } catch (Exception $e) {
