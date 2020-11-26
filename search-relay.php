@@ -8,8 +8,6 @@ $logd_port = 3207;
 $logd = getenv('A0_QRYLOGD') ?: 'localhost';
 $logd_url = "http://$logd:$logd_port/push/query";
 
-//error_log(serialize(getenv('A0_SEARCHD')));
-
 /* open CORS policy to allow access with any Origin field in header */
 function enable_cors_policy()
 {
@@ -170,14 +168,27 @@ if(!isset($_GET['q']) || !is_scalar($_GET['q'])) {
 if(isset($_GET['p']) && is_scalar($_GET['p']))
 	$req_page = intval($_GET['p']);
 
+/* geo_* variables for geographical information */
+$headers = getallheaders();
+$geo_city = $headers['Geo-City'] ?? 'Unknown';
+$geo_region = $headers['Geo-Subd'] ?? 'Unknown';
+$geo_country = $headers['Geo-Ctry'] ?? 'Unknown';
+//error_log(serialize(getallheaders()));
+
 /*
  * split and handle each query keyword
  */
 $query_obj = array(
 	"ip" => $remote_ip,
 	"page" => $req_page,
+	"geo" => array(
+		"city" => $geo_city,
+		"region" => $geo_region,
+		"country" => $geo_country
+	),
 	"kw" => array()
 );
+//var_dump($query_obj);
 $keywords = qry_explode($req_qry_str);
 
 foreach ($keywords as $kw) {
@@ -208,7 +219,6 @@ foreach ($keywords as $kw) {
  * relay
  */
 enable_cors_policy();
-//var_dump($query_obj);
 
 try {
 	/* add to query logs */
