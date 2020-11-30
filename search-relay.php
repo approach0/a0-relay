@@ -163,17 +163,17 @@ if(!isset($_GET['q']) || !is_scalar($_GET['q'])) {
 if(isset($_GET['p']) && is_scalar($_GET['p']))
 	$req_page = intval($_GET['p']);
 
+/* extract client IP and Geo-* information */
+$remote_ip = $_SERVER['HTTP_X_REAL_IP'] ?? $_SERVER['REMOTE_ADDR'];
+$geo_city = $_SERVER['HTTP_GEO_CITY'] ?? 'Unknown';
+$geo_region = $_SERVER['HTTP_GEO_SUBD'] ?? 'Unknown';
+$geo_country = $_SERVER['HTTP_GEO_CTRY'] ?? 'Unknown';
+
 /* log HTTP header (DEBUG) */
 //$headers = getallheaders();
 //foreach ($headers as $header => $value) {
 //	error_log("$header: $value\n");
 //}
-
-/* extract client IP and Geo-* information */
-$remote_ip = $_SERVER['HTTP_X_REAL_IP'] ?? $_SERVER['REMOTE_ADDR'];
-$geo_city = $headers['Geo-City'] ?? 'Unknown';
-$geo_region = $headers['Geo-Subd'] ?? 'Unknown';
-$geo_country = $headers['Geo-Ctry'] ?? 'Unknown';
 
 /*
  * split and handle each query keyword
