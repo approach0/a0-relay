@@ -145,11 +145,6 @@ function replace_interrogation($str)
 }
 
 /*
- * get remote IP
- */
-$remote_ip=$_SERVER['REMOTE_ADDR'];
-
-/*
  * parsing GET request parameters
  */
 $req_qry_str = '';
@@ -168,12 +163,17 @@ if(!isset($_GET['q']) || !is_scalar($_GET['q'])) {
 if(isset($_GET['p']) && is_scalar($_GET['p']))
 	$req_page = intval($_GET['p']);
 
-/* geo_* variables for geographical information */
-$headers = getallheaders();
+/* log HTTP header (DEBUG) */
+//$headers = getallheaders();
+//foreach ($headers as $header => $value) {
+//	error_log("$header: $value\n");
+//}
+
+/* extract client IP and Geo-* information */
+$remote_ip = $_SERVER['HTTP_X_REAL_IP'] ?? $_SERVER['REMOTE_ADDR'];
 $geo_city = $headers['Geo-City'] ?? 'Unknown';
 $geo_region = $headers['Geo-Subd'] ?? 'Unknown';
 $geo_country = $headers['Geo-Ctry'] ?? 'Unknown';
-//error_log(serialize(getallheaders()));
 
 /*
  * split and handle each query keyword
