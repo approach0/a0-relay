@@ -28,3 +28,8 @@ will be sent in JSON to both target services.
 # docker run -it --network test_net -e A0_SEARCHD=a0 -p 8080:8080 a0-relay
 ```
 then visit `http://localhost:8080/search-relay.php?q=test`.
+
+Alternatively, test a0-relay in host network directly:
+```
+# docker run -it --network host a0-relay
+```
