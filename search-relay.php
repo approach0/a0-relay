@@ -188,7 +188,6 @@ $query_obj = array(
 	),
 	"kw" => array()
 );
-//var_dump($query_obj);
 $keywords = qry_explode($req_qry_str);
 
 foreach ($keywords as $kw) {
@@ -214,6 +213,9 @@ foreach ($keywords as $kw) {
 		"str" => $kw_str)
 	);
 }
+
+//var_dump($query_obj);
+//exit;
 
 /*
  * relay
