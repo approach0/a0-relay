@@ -191,9 +191,18 @@ $query_obj = array(
 $keywords = qry_explode($req_qry_str);
 
 foreach ($keywords as $kw) {
-	$kw = trim($kw);
 	$kw_type = 'unknown';
-	$kw_str = '';
+	$kw = trim($kw);
+	$ret = preg_match('/(OR|AND|NOT) ([a-z]+):(.*)/', $kw, $fields,
+	                  PREG_UNMATCHED_AS_NULL);
+	if ($ret !== 1)
+		continue; // no match or any error
+
+	$op = $fields[1] ?? 'OR';
+	$fi = $fields[2] ?? 'content';
+	$kw = $fields[3] ?? '';
+
+	// error_log("$op $fi:$kw |");
 
 	if ($kw == '') {
 		/* skip this empty keyword */
@@ -209,8 +218,11 @@ foreach ($keywords as $kw) {
 	}
 
 	array_push($query_obj["kw"], array(
-		"type" => $kw_type,
-		"str" => $kw_str)
+			"type"  => $kw_type,
+			"op"    => $op,
+			"field" => $fi,
+			"str"   => $kw_str
+		)
 	);
 }
 
