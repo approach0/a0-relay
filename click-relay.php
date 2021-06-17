@@ -1,5 +1,6 @@
 <?php
 require 'config.php';
+require 'cors.php';
 
 function click_relay($qryobj)
 {
@@ -31,6 +32,10 @@ function click_relay($qryobj)
 $data = json_decode(file_get_contents('php://input'), true); /* POST data */
 $remote_ip = $_SERVER['HTTP_X_REAL_IP'] ?? $_SERVER['REMOTE_ADDR'];
 $data['ip'] = $remote_ip;
+
+/* enable CORS only in develop environment  */
+if ($searchd == 'localhost' && $logd == 'localhost')
+	enable_cors_policy();
 
 // var_dump($data); /* echo message */
 try {
