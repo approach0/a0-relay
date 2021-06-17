@@ -1,0 +1,8 @@
+{
+	"qry":"A = \\{ x | y = \\operatorname { ln } ( 1 - x ) \\}",
+	"clicks": [
+		[1, 1, "http://top.bar", 0],
+		[2, 1, "http://good.bar", 1],
+		[3, 1, "http://bad.bar", 0]
+	]
+}

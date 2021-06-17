@@ -1,12 +1,5 @@
 <?php
-/* global config variables */
-$searchd_port = 8921;
-$searchd = getenv('A0_SEARCHD') ?: 'localhost';
-$searchd_url = "http://$searchd:$searchd_port/search";
-
-$logd_port = 3207;
-$logd = getenv('A0_QRYLOGD') ?: 'localhost';
-$logd_url = "http://$logd:$logd_port/push/query";
+require 'config.php';
 
 /* open CORS policy to allow access with any Origin field in header */
 function enable_cors_policy()
